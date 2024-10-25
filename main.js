@@ -9,6 +9,8 @@
   const takePic = document.querySelector(".takePic");
   const goBackButton = document.querySelector(".goBack");
   const fileInput = document.getElementById("file-input");
+  const savePic = document.querySelector(".savePic");
+  const newPic = document.querySelector(".newPic");
 
 
   const width = 320;
@@ -51,6 +53,11 @@ function capturePhoto(){
   context.drawImage(video, 0, 0, width, height);
   const imageData = canvas.toDataURL("image/png");
   photo.setAttribute("src", imageData);
+  video.style.display = "none";
+  takePic.style.display ="none";
+  canvas.style.display = "block";
+  savePic.style.display ="inline";
+  newPic.style.display ="inline";
 }
 
 function goBack(){
@@ -59,12 +66,23 @@ video.style.display= "none";
 canvas.style.display = "none";
 takePic.style.display = "none";
 goBackButton.style.display = "none";
+savePic.style.display ="none";
+newPic.style.display ="none";
 launchCamera.style.display = "inline";
 fileInput.style.display = "inline";
+}
+
+function takeNewPhoto(){
+  canvas.style.display = "none";
+  video.style.display ="block";
+  takePic.style.display ="inline"
+  savePic.style.display ="none";
+  newPic.style.display ="none";
 }
 
 launchCamera.addEventListener("click", askCameraPermission);
 takePic.addEventListener("click", capturePhoto);
 goBackButton.addEventListener("click", goBack);
+newPic.addEventListener("click", takeNewPhoto);
 })();
 
