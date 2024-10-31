@@ -10,10 +10,6 @@
   const goBackButton = document.querySelector(".goBack");
   const fileInput = document.getElementById("file-input");
 
-
-  const width = 320;
-  let height = 0;
-
   
   const askCameraPermission = async function(){
     await requestCameraPermission();
