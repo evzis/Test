@@ -7,10 +7,30 @@
     
     <title>Test document</title>
     <style>
-      video {
+      video, canvas {
         width: 100vw;
         height: 100vh;
+        object-fit: cover;
+        position: fixed;
+        top:0;
+        left:0;
       }
+
+      .overlay {
+position: absolute;
+padding: 10px;
+z-index: 10;
+
+      }
+      .takePic {
+        bottom: 10%;
+left: 40%;
+      }
+      .goBack {
+        bottom: 10%;
+        left: 50%;
+      }
+
     </style>
 </head>
 <body>
@@ -26,11 +46,11 @@
   
       <div>
       <button class="launchCamera">Launch camera</button>
-      <button class="takePic" style="display:none">Take picture</button>
-     <button class="newPic" style ="display: none">Retake</button> 
+      <button class="takePic overlay" style="display:none">Take picture</button>
+     <button class="newPic" style ="display: none">Take new picture</button> 
   
-      <button class="savePic" style="display:none">Share</button>
-        <button class="goBack" style="display:none">Go back</button>
+      <button class="savePic" style="display:none">Save picture</button>
+        <button class="goBack overlay" style="display:none">Go back</button>
     </div>
     </div>
      
