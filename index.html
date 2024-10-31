@@ -10,47 +10,20 @@
       video {
         width: 100vw;
         height: 100vh;
-        object-fit:cover;
-        position: fixed;
-        top:0;
-        left:0;
       }
-
-      .camera-container {
-  position: relative;
-  width: 100vw;
-  height: 100vh;
-  overflow: hidden;
-}
-
-button.overlay-button {
-  position: absolute;
-  padding: 10px 20px;
-  font-size: 16px;
-  z-index: 10;
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  cursor: pointer;
-}
-.launchCamera { top: 10%; left: 10%; }
-.takePic { bottom: 20%; left: 50%; transform: translateX(-50%); }
-.goBack { bottom: 10%; left: 10%; }
-.savePic, .newPic { bottom: 10%; right: 10%; }
     </style>
 </head>
 <body>
     <h1>Test document</h1>
     <p>Here you can take a picture</p>
       <input type="file" accept="image/*" id="file-input">
-      <div class="camera-container">
-        <video id="video">Video stream not available</video>
-        <button class="overlay-button launchCamera">Launch Camera</button>
-        <button class="overlay-button takePic" style="display: none;">Take Picture</button>
-        <button class="overlay-button goBack" style="display: none;">Go Back</button>
-        <button class="overlay-button sharePic" style="display: none;">Save Picture</button>
-        <button class="overlay-button newPic" style="display: none;">Take New Picture</button>
-      </div>
+      <div class="camera">
+        <video id="video" style="display:none">Video stream not available</video>
+         <canvas id="canvas" style="display:none"></canvas>
+      <class class="output" style="display:none">
+        <img id="photo" alt="The screen capture will appear in the box">
+      </class>
+  
       <div>
       <button class="launchCamera">Launch camera</button>
       <button class="takePic" style="display:none">Take picture</button>
