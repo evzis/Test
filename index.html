@@ -16,28 +16,27 @@
         left:0;
       }
 
-      .overlay {
-position: absolute;
-padding: 10px;
-z-index: 10;
+      .button-container {
+  position: fixed;
+  bottom: 10%;
+  left: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Adjust spacing between buttons */
+  z-index: 10;
+}
 
-      }
-      .takePic {
-        bottom: 10%;
-left: 40%;
-      }
-      .goBack {
-        bottom: 10%;
-        left: 50%;
-      }
-      .newPic {
-        bottom: 10%;
-        left: 40%;
-      }
-      .sharePic {
-        bottom: 10%;
-        left:45%;
-      }
+/* Style buttons consistently */
+.button-container button {
+  padding: 10px 15px;
+  font-size: 16px;
+  background-color: white;
+  color: black;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
 
     </style>
 </head>
@@ -48,12 +47,13 @@ left: 40%;
       <div class="camera">
         <video id="video" style="display:none">Video stream not available</video>
          <canvas id="canvas" style="display:none"></canvas>
-      <class class="output" style="display:none">
+      <div class="output" style="display:none">
         <img id="photo" alt="The screen capture will appear in the box">
-      </class>
-  
-      <div>
-      <button class="launchCamera">Launch camera</button>
+      </div>
+    <button class="launchCamera">Launch camera</button>
+    
+      <div class="button-container">
+    
       <button class="takePic overlay" style="display:none">Take picture</button>
      <button class="newPic overlay" style ="display: none">Retake</button> 
       <button class="sharePic overlay" style="display:none">Share</button>
