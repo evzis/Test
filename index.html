@@ -7,7 +7,7 @@
     
     <title>Test document</title>
     <style>
-      video, canvas {
+      video, canvas{
         width: 100vw;
         height: 100vh;
         object-fit: cover;
@@ -30,6 +30,14 @@ left: 40%;
         bottom: 10%;
         left: 50%;
       }
+      .newPic {
+        bottom: 10%;
+        left: 40%;
+      }
+      .sharePic {
+        bottom: 10%;
+        left:45%;
+      }
 
     </style>
 </head>
@@ -47,9 +55,8 @@ left: 40%;
       <div>
       <button class="launchCamera">Launch camera</button>
       <button class="takePic overlay" style="display:none">Take picture</button>
-     <button class="newPic" style ="display: none">Take new picture</button> 
-  
-      <button class="savePic" style="display:none">Save picture</button>
+     <button class="newPic overlay" style ="display: none">Retake</button> 
+      <button class="sharePic overlay" style="display:none">Share</button>
         <button class="goBack overlay" style="display:none">Go back</button>
     </div>
     </div>

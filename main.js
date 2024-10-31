@@ -8,7 +8,7 @@
   const takePic = document.querySelector(".takePic");
   const goBackButton = document.querySelector(".goBack");
   const fileInput = document.getElementById("file-input");
-  const savePic = document.querySelector(".savePic");
+  const sharePic = document.querySelector(".sharePic");
   const newPic = document.querySelector(".newPic");
   
   const askCameraPermission = async function(){
@@ -49,12 +49,12 @@ function capturePhoto(){
   context.drawImage(video, 0, 0, width, height);
   const imageData = canvas.toDataURL("image/png");
   photo.setAttribute("src", imageData);
-  
-   canvas.style.display = "inline";
-   video.style.display = "none";
+
+
+  video.style.display = "none";
   takePic.style.display ="none";
   canvas.style.display = "block";
-  savePic.style.display ="inline";
+  sharePic.style.display ="inline";
   newPic.style.display ="inline";
 }
 
@@ -64,7 +64,7 @@ video.style.display= "none";
 canvas.style.display = "none";
 takePic.style.display = "none";
 goBackButton.style.display = "none";
-savePic.style.display ="none";
+sharePic.style.display ="none";
 newPic.style.display ="none";
 launchCamera.style.display = "inline";
 fileInput.style.display = "inline";
@@ -74,7 +74,7 @@ function takeNewPhoto(){
   canvas.style.display = "none";
   video.style.display ="block";
   takePic.style.display ="inline"
-  savePic.style.display ="none";
+  sharePic.style.display ="none";
   newPic.style.display ="none";
 }
 
