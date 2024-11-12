@@ -1,5 +1,8 @@
 (() => {
-  const streaming = false;
+  let streaming = false;
+  let stream;
+  let currentDeviceId = null;
+  let isUsingFrontCamera = true;
   const video = document.getElementById("video");
   const canvas = document.getElementById("canvas");
   const photo = document.getElementById("photo");
@@ -9,14 +12,29 @@
   const fileInput = document.getElementById("file-input");
   const sharePic = document.querySelector(".sharePic");
   const newPic = document.querySelector(".newPic");
+  const selectCamera = document.querySelector(".custom-select");
 
-  // New elements and variables for camera toggle
-  const toggleCameraButton = document.createElement("button");
-  toggleCameraButton.textContent = "Switch Camera";
-  document.body.appendChild(toggleCameraButton);
-  toggleCameraButton.style.display = "none";
-  let isUsingFrontCamera = true;
-  let stream;
+  async function getDevices() {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const videoDevices = devices.filter(device => device.kind === "videoinput");
+
+    // Populate the select element with available cameras
+    videoDevices.forEach((device, index) => {
+      const option = document.createElement("option");
+      option.value = device.deviceId;
+      option.text = device.label || `Camera ${index + 1}`;
+      selectCamera.appendChild(option);
+    });
+
+    // Listen for camera selection change
+    selectCamera.addEventListener("change", () => {
+      currentDeviceId = selectCamera.value;
+      if (stream) {
+        stopStream();
+        requestCameraPermission();
+      }
+    });
+  }
 
   const askCameraPermission = async function () {
     await requestCameraPermission();
@@ -25,13 +43,15 @@
     video.style.display = "block";
     takePic.style.display = "inline";
     goBackButton.style.display = "inline";
-    toggleCameraButton.style.display = "inline";
+    selectCamera.style.display = "inline";
   };
 
   async function requestCameraPermission() {
     try {
-      const facingMode = isUsingFrontCamera ? "user" : "environment";
-      const constraints = { video: { facingMode }, audio: false };
+      const constraints = {
+        video: { deviceId: currentDeviceId ? { exact: currentDeviceId } : undefined },
+        audio: false,
+      };
       stream = await navigator.mediaDevices.getUserMedia(constraints);
       video.srcObject = stream;
       video.play();
@@ -53,25 +73,23 @@
 
     video.style.display = "none";
     takePic.style.display = "none";
-    toggleCameraButton.style.display = "none";
     canvas.style.display = "block";
     sharePic.style.display = "inline";
     newPic.style.display = "inline";
   }
 
   function goBack() {
-    if (stream) {
-      stream.getTracks().forEach((track) => track.stop());
-    }
+    stopStream();
     video.style.display = "none";
     canvas.style.display = "none";
     takePic.style.display = "none";
     goBackButton.style.display = "none";
     sharePic.style.display = "none";
     newPic.style.display = "none";
-    toggleCameraButton.style.display = "none";
     launchCamera.style.display = "inline";
     fileInput.style.display = "inline";
+    selectCamera.style.display = "none";
+    selectCamera.style.display = "inline";
   }
 
   function takeNewPhoto() {
@@ -80,16 +98,12 @@
     takePic.style.display = "inline";
     sharePic.style.display = "none";
     newPic.style.display = "none";
-    toggleCameraButton.style.display = "inline";
   }
 
-  // Method to switch between front and back camera
-  async function toggleCamera() {
-    isUsingFrontCamera = !isUsingFrontCamera;
+  function stopStream() {
     if (stream) {
-      stream.getTracks().forEach((track) => track.stop());
+      stream.getTracks().forEach(track => track.stop());
     }
-    await requestCameraPermission();
   }
 
   // Attach event listeners
@@ -97,5 +111,9 @@
   takePic.addEventListener("click", capturePhoto);
   goBackButton.addEventListener("click", goBack);
   newPic.addEventListener("click", takeNewPhoto);
-  toggleCameraButton.addEventListener("click", toggleCamera);
-})()
+
+  // Initialize device selection
+  getDevices();
+})();
+
+
